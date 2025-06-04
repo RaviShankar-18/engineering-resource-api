@@ -17,7 +17,8 @@ This backend system manages engineering resource allocation by tracking:
 - **Framework:** Express.js
 - **Database:** MongoDB with Mongoose ODM
 - **Authentication:** JWT (JSON Web Tokens)
-- **Security:** bcrypt, CORS
+- **Validation:** Express-validator
+- **Security:** bcryptjs, CORS, helmet
 - **Deployment:** Vercel
 
 ## 📊 Database Schema
@@ -161,7 +162,7 @@ ENGINEERING RESOURCE MANAGEMENT BACKEND/
 ### Prerequisites
 - Node.js (v14 or higher)
 - MongoDB database
-- npm
+- npm or yarn
 
 ### Installation
 1. Clone the repository
@@ -189,7 +190,7 @@ NODE_ENV=development
 npm run dev
 ```
 
-The server will start on `http://localhost:3000`
+The server will start on `http://localhost:5000`
 
 ### Database Seeding
 To populate the database with sample data:
@@ -219,28 +220,21 @@ This creates:
 ## 🔧 AI-Powered Development Approach
 
 ### AI Tools Used
-- **Claude AI:** For code architecture, debugging, and optimization
-- **ChatGPT:** For doing research part and clarification
+- **Claude AI:** For backend development and code structure
+- **ChatGPT:** For research and answering technical questions
 
-### Specific AI Implementations
-1. **API Design:** Used AI to structure RESTful endpoints following best practices
-2. **Database Schema:** AI helped optimize MongoDB schema design for efficient queries
-3. **Middleware Logic:** AI-assisted authentication and authorization middleware
-4. **Error Handling:** Comprehensive error handling patterns suggested by AI
-5. **Capacity Calculations:** AI helped implement complex business logic for resource allocation
+### How AI Helped
+**Claude AI:**
+- Provided existing code patterns from my previous projects (Books Management API, Recipes API, ShopEasy API)
+- Generated models, database connection, and routes following my established folder structure
+- Created controllers and middleware maintaining consistency with my coding style
+- Listed all API endpoints for easy Postman testing
+- No extra packages or unnecessary code added - only what was requested
 
-### AI Development Challenges & Solutions
-- **Challenge:** AI-generated code initially had circular dependency issues
-  - **Solution:** Restructured imports and modularized code properly
-- **Challenge:** Over-complex validation logic from AI suggestions
-  - **Solution:** Simplified validation while maintaining data integrity
-- **Challenge:** AI suggested deprecated MongoDB methods
-  - **Solution:** Updated to current Mongoose practices and methods
-
-### Code Validation Approach
-- Thoroughly tested all AI-generated endpoints with Postman
--
-
+**ChatGPT:**
+- Research assistance for technical concepts
+- Answered specific implementation questions
+- Provided clarification on MongoDB schema design
 
 ## 🔍 Key Features Implemented
 - ✅ JWT-based authentication system
@@ -261,35 +255,40 @@ Deployed on Vercel with:
 - CORS configured for frontend integration
 
 ## 📝 API Testing
-Use the following sample requests to test the API:
+Test the API endpoints using the live URL:
 
-### Login as Manager
+### Authentication Endpoints
 ```bash
+POST https://engineering-resource-api.vercel.app/api/auth/register
 POST https://engineering-resource-api.vercel.app/api/auth/login
-{
-  "email": "manager@company.com",
-  "password": "password123"
-}
+GET https://engineering-resource-api.vercel.app/api/auth/profile
 ```
 
-### Get All Engineers
+### Engineer Endpoints
 ```bash
 GET https://engineering-resource-api.vercel.app/api/engineers
-Authorization: Bearer YOUR_JWT_TOKEN
+GET https://engineering-resource-api.vercel.app/api/engineers/:id
+GET https://engineering-resource-api.vercel.app/api/engineers/:id/capacity
+PUT https://engineering-resource-api.vercel.app/api/engineers/:id
 ```
 
-### Create Assignment
+### Project Endpoints
 ```bash
+GET https://engineering-resource-api.vercel.app/api/projects
+POST https://engineering-resource-api.vercel.app/api/projects
+GET https://engineering-resource-api.vercel.app/api/projects/:id
+PUT https://engineering-resource-api.vercel.app/api/projects/:id
+DELETE https://engineering-resource-api.vercel.app/api/projects/:id
+```
+
+### Assignment Endpoints
+```bash
+GET https://engineering-resource-api.vercel.app/api/assignments
 POST https://engineering-resource-api.vercel.app/api/assignments
-Authorization: Bearer YOUR_JWT_TOKEN
-{
-  "engineerId": "ENGINEER_ID",
-  "projectId": "PROJECT_ID",
-  "allocationPercentage": 50,
-  "startDate": "2024-01-01",
-  "endDate": "2024-03-01",
-  "role": "Developer"
-}
+GET https://engineering-resource-api.vercel.app/api/assignments/:id
+PUT https://engineering-resource-api.vercel.app/api/assignments/:id
+DELETE https://engineering-resource-api.vercel.app/api/assignments/:id
+GET https://engineering-resource-api.vercel.app/api/assignments/engineer/:engineerId
 ```
 
 ## 🔄 API Ready for Frontend Integration
@@ -299,3 +298,7 @@ This backend API is ready to be consumed by any frontend application with:
 - Role-based access control
 - Real-time capacity calculations
 - Comprehensive error handling
+
+
+
+---
